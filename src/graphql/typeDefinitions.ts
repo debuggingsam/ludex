@@ -1,4 +1,6 @@
 export const typeDefs = /* GraphQL */ `
+  scalar Date 
+
   input CreateSomethingInput {
     name: String!
   }
@@ -12,7 +14,21 @@ export const typeDefs = /* GraphQL */ `
     createSomething(input: CreateSomethingInput!): Something!
   }
 
-  type Query {
+ type Query {
     hello: String
+    getAllTodos: [Todo!]!
+    getTodoById(id: String!): Todo
+    getCompletedTodos: [Todo!]!
+    getIncompleteTodos: [Todo!]!
+}
+
+  type Todo {
+    id: ID!
+    title: String!
+    completed: Boolean!
+    createdAt: Date!
+    updatedAt: Date!
   }
+
+
 `;
