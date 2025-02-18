@@ -6,6 +6,12 @@ import { PrismaClient } from "@prisma/client";
 import { Query } from "./query";
 import { Mutation } from "./mutation";
 
+
+// Note that we can probably use our own custom scalar for Date. 
+// I don't know if there are performance/logical drawbacks to this.
+// Definitely worth exploring, but I'll use this for now. 
+import GraphQLJSON from 'graphql-type-json';
+
 const prisma = new PrismaClient();
 
 const yogaPublicRouter = Router();
@@ -15,6 +21,7 @@ const schema = createSchema({
   resolvers: {
     Query,
     Mutation,
+    Date: GraphQLJSON,
   },
 });
 
