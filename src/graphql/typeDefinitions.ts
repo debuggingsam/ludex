@@ -12,7 +12,14 @@ export const typeDefs = /* GraphQL */ `
 
   type Mutation {
     createSomething(input: CreateSomethingInput!): Something!
+    createTodo(input: CreateTodoInput!): Todo!
+    deleteTodo(id: String!): Todo!
+    markTodoAsComplete(id: String!): Todo!
+    markTodoAsIncomplete(id: String!): Todo!
+    updateTodoTitle(id: String!, title: String!): Todo!
   }
+
+
 
  type Query {
     hello: String
@@ -22,6 +29,7 @@ export const typeDefs = /* GraphQL */ `
     getIncompleteTodos: [Todo!]!
 }
 
+
   type Todo {
     id: ID!
     title: String!
@@ -30,5 +38,16 @@ export const typeDefs = /* GraphQL */ `
     updatedAt: Date!
   }
 
+  input CreateTodoInput {
+    title: String!
+    completed: Boolean
+  }
+
+  input UpdateTodoInput {
+    title: String
+    completed: Boolean
+  }
+
 
 `;
+
