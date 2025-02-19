@@ -35,22 +35,27 @@ export const Mutation: IMutation<Context> = {
 
     // MARK COMPLETION via ID 
     markTodoAsComplete: async (_, { id }, { prisma }) => {
-
       // Get the todo (or undefined)
       const todo = await prisma.todo.findUnique({ where: { id } });
-
+    
       // no todo found
       if (!todo) {
         throw new Error(`The id you gave (${id}) doesn't match any todos in our db.`);
       }
-  
+    
+      // Check if the todo is already completed
+      if (todo.completed) {
+        throw new Error(`The todo with the id you gave ${id} is already completed.`);
+      }
+    
       const updatedTodo = await prisma.todo.update({
         where: { id },
         data: { completed: true },
       });
-  
+    
       return updatedTodo;
     },
+    
 
     // NAME CHANGE via ID AND NEW NAME 
     updateTodoTitle: async (_, { id, title }, { prisma }) => {
